@@ -47,6 +47,8 @@ jobs:
             name: 'Windows Latest',
             os: windows-latest,
             gen: 'MSVC',    # CMake generator
+            # Use ccache
+            cmake_config_flags: "-D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache",
             pluginval_link: "https://github.com/Tracktion/pluginval/releases/latest/download/pluginval_Windows.zip",
             pluginval_path: "./pluginval.exe"
           }
@@ -61,8 +63,7 @@ jobs:
     # Use the ccache compiler cache to speed up builds
     # Note: ccache does not support Windows
     - name: Enable ccache
-      if: runner.os != 'Windows'
-      uses: hendrikmuhs/ccache-action@v1
+      uses: hendrikmuhs/ccache-action@v1.2
       with:
         key: ${{ runner.os }}-${{ env.BUILD_TYPE }}
 
