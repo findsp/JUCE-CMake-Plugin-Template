@@ -2,9 +2,9 @@
 
 [![Build](https://img.shields.io/github/actions/workflow/status/anthonyalfimov/JUCE-CMake-Plugin-Template/Validation.yml?branch=main&logo=github)](https://github.com/anthonyalfimov/JUCE-CMake-Plugin-Template/actions)
 
-A template for creating an audio plugin using [JUCE 6/7](https://github.com/juce-framework/JUCE) and [CMake](https://cmake.org).
+A template for creating an audio plug-in using [JUCE 7/8](https://github.com/juce-framework/JUCE) and [CMake](https://cmake.org) that can be used as a [drop-in replacement for Projucer](MIGRATE_FROM_PROJUCER.md).
 
-- Works as a drop-in replacement for Projucer - no changes to the source code are necessary! The template can also be used alongside a `.jucer` project.
+- Works as a drop-in replacement for Projucer, no changes to the source code are necessary! The template can also be used alongside a `.jucer` project.
 - Generates clean Xcode and Visual Studio projects (reasonable source file organisation, only the necessary build schemes for Xcode).
 - Uses CMake to manage dependencies (e.g. JUCE). The template creates a shallow clone of the specified git tag or branch to reduce download times and disk usage.
 - Uses GitHub Actions to build and validate the plugin on MacOS and Windows. Dependencies and compiler output are cached for faster builds.
@@ -15,17 +15,17 @@ To learn how to replace a Projucer project with this template, see the [**Migrat
 
 To generate an **Xcode** project, run:
 ```sh
-cmake -B Build -G Xcode -D CMAKE_OSX_ARCHITECTURES=arm64\;x86_64 -D CMAKE_OSX_DEPLOYMENT_TARGET=10.13
+cmake -B Build -G Xcode -D CMAKE_OSX_ARCHITECTURES=arm64\;x86_64 -D CMAKE_OSX_DEPLOYMENT_TARGET=10.15
 ```
 The `-D CMAKE_OSX_ARCHITECTURES=arm64\;x86_64` flag is required to build universal binaries.
 
-The `-D CMAKE_OSX_DEPLOYMENT_TARGET=10.13` flag sets the minimum MacOS version to be supported.
+The `-D CMAKE_OSX_DEPLOYMENT_TARGET=10.15` flag sets the minimum MacOS version to be supported.
 
 ---
 
-To generate a **Visual Studio 2022 (17)** project, run:
+To generate a **Visual Studio 2026 (18)** project, run:
 ```sh
-cmake -B Build -G "Visual Studio 17"
+cmake -B Build -G "Visual Studio 18 2026"
 ```
 
 ## Building

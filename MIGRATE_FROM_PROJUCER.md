@@ -68,7 +68,7 @@ Shallow cloning is used to reduce the download size.
 
 Edit the following line to set the version of JUCE you want to use for your project:
 ```cmake
-set(LIB_JUCE_TAG "6.1.5")
+set(LIB_JUCE_TAG "8.0.12")
 ```
 You can use either a git tag name, or a git branch name.
 
@@ -219,7 +219,7 @@ If you want to keep using the Projucer project alongside the CMake one, make sur
 
 To generate an **Xcode** project on MacOS, you can run:
 ```sh
-cmake -B Build-CMake -G Xcode -D CMAKE_OSX_ARCHITECTURES=arm64\;x86_64 -D CMAKE_OSX_DEPLOYMENT_TARGET=10.13
+cmake -B Build-CMake -G Xcode -D CMAKE_OSX_ARCHITECTURES=arm64\;x86_64 -D CMAKE_OSX_DEPLOYMENT_TARGET=10.15
 ```
 - `-B Build-CMake` sets the CMake build directory.
 
@@ -227,17 +227,17 @@ cmake -B Build-CMake -G Xcode -D CMAKE_OSX_ARCHITECTURES=arm64\;x86_64 -D CMAKE_
 
 - `-D CMAKE_OSX_ARCHITECTURES=arm64\;x86_64` is an *optional* flag that is required to build universal binaries.
 
-- `-D CMAKE_OSX_DEPLOYMENT_TARGET=10.13` is an *optional* flag that sets the minimum MacOS version to be supported.
+- `-D CMAKE_OSX_DEPLOYMENT_TARGET=10.15` is an *optional* flag that sets the minimum MacOS version to be supported.
 
 ---
 
-To generate a **Visual Studio 2022 (17)** on Windows, you can run:
+To generate a **Visual Studio 2026 (18)** on Windows, you can run:
 ```sh
-cmake -B Build-CMake -G "Visual Studio 17 2022"
+cmake -B Build-CMake -G "Visual Studio 18 2026"
 ```
 - `-B Build-CMake` sets the CMake build directory.
 
-- `-G "Visual Studio 17 2022"` tells CMake to generate a Visual Studio 2022 project.
+- `-G "Visual Studio 18 2026"` tells CMake to generate a Visual Studio 2026 project.
 
 ---
 
