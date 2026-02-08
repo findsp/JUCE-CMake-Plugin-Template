@@ -29,15 +29,18 @@ See: **[Migrating from Projucer](MIGRATE_FROM_PROJUCER.md)**
 ## Generating IDE Projects
 
 ### macOS (Xcode)
+
 ```sh
-cmake -B Build -G Xcode -D CMAKE_OSX_ARCHITECTURES=arm64\;x86_64 -D CMAKE_OSX_DEPLOYMENT_TARGET=10.15
+cmake -B Build -G Xcode \
+  -D CMAKE_OSX_ARCHITECTURES=arm64\;x86_64 \
+  -D CMAKE_OSX_DEPLOYMENT_TARGET=10.15
+```
 
-Notes:
+**Notes**
 
-CMAKE_OSX_ARCHITECTURES=arm64\\;x86_64 builds universal binaries (Apple Silicon + Intel)
+- `CMAKE_OSX_ARCHITECTURES=arm64\;x86_64` builds universal binaries (Apple Silicon + Intel)
+- `CMAKE_OSX_DEPLOYMENT_TARGET=10.15` sets the minimum supported macOS version
 
-CMAKE_OSX_DEPLOYMENT_TARGET=10.15 sets the minimum supported macOS version
----
 
 ### Windows (Visual Studio 2026)
 
