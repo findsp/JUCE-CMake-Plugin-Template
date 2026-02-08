@@ -1,75 +1,121 @@
-
 # JUCE CMake Audio Plugin Template
 ## FINDSP additions for Linux
 
 [![Build](https://img.shields.io/github/actions/workflow/status/anthonyalfimov/JUCE-CMake-Plugin-Template/Validation.yml?branch=main&logo=github)](https://github.com/anthonyalfimov/JUCE-CMake-Plugin-Template/actions)
 
-A template for creating an audio plug-in using [JUCE 7/8](https://github.com/juce-framework/JUCE) and [CMake](https://cmake.org) that can be used as a [drop-in replacement for Projucer](MIGRATE_FROM_PROJUCER.md).
+A production-ready template for creating an audio plug-in using [JUCE 7/8](https://github.com/juce-framework/JUCE) and [CMake](https://cmake.org).
 
-- Works as a drop-in replacement for Projucer, no changes to the source code are necessary! The template can also be used alongside a `.jucer` project.
-- Generates clean Xcode, Visual Studio, and Ninja/Make projects (reasonable source file organisation, only the necessary build schemes).
-- Uses CMake to manage dependencies (e.g. JUCE). The template creates a shallow clone of the specified git tag or branch to reduce download times and disk usage.
-- Uses GitHub Actions to build and validate the plugin on MacOS, Windows, and Linux. Dependencies and compiler output are cached for faster builds.
+Designed as a **drop-in replacement for Projucer**, with clean, modern CMake workflows and zero required source changes.
 
-To learn how to replace a Projucer project with this template, see the [**Migrating from Projucer**](MIGRATE_FROM_PROJUCER.md) guide.
+See: **[Migrating from Projucer](MIGRATE_FROM_PROJUCER.md)**
 
-## Generating IDE projects
+---
+
+## Features
+
+- Drop-in replacement for Projucer (no source changes required)
+- Can coexist alongside a `.jucer` project
+- Generates clean:
+  - Xcode
+  - Visual Studio
+  - Ninja / Make
+- Minimal, organized project structure
+- CMake manages dependencies automatically (JUCE shallow clone for faster downloads)
+- GitHub Actions CI builds on macOS, Windows, and Linux
+- Cached dependencies and compiler outputs for fast CI
+
+---
+
+## Generating IDE Projects
 
 ### macOS (Xcode)
+
 ```sh
-cmake -B Build -G Xcode -D CMAKE_OSX_ARCHITECTURES=arm64\\;x86_64 -D CMAKE_OSX_DEPLOYMENT_TARGET=10.15
+cmake -B Build -G Xcode \
+  -D CMAKE_OSX_ARCHITECTURES=arm64\;x86_64 \
+  -D CMAKE_OSX_DEPLOYMENT_TARGET=10.15
+````
 
-The -D CMAKE_OSX_ARCHITECTURES=arm64\\;x86_64 flag is required to build universal binaries.
+Notes:
 
-The -D CMAKE_OSX_DEPLOYMENT_TARGET=10.15 flag sets the minimum macOS version to be supported.
+* `CMAKE_OSX_ARCHITECTURES=arm64\;x86_64` builds universal binaries (Apple Silicon + Intel)
+* `CMAKE_OSX_DEPLOYMENT_TARGET=10.15` sets the minimum supported macOS version
+
+---
 
 ### Windows (Visual Studio 2026)
+
 ```sh
 cmake -B Build -G "Visual Studio 18 2026"
 ```
 
+---
+
 ### Linux (Ninja)
+
 ```sh
 cmake -B Build -G Ninja
 ```
 
-**Ubuntu/Debian dependencies:**
+### Ubuntu / Debian dependencies
+
 ```sh
-sudo apt install build-essential cmake git \\
-  libasound2-dev libx11-dev libxrandr-dev libxinerama-dev \\
-  libxcursor-dev libxcomposite-dev libfreetype6-dev \\
+sudo apt install build-essential cmake git \
+  libasound2-dev libx11-dev libxrandr-dev libxinerama-dev \
+  libxcursor-dev libxcomposite-dev libfreetype6-dev \
   libcurl4-openssl-dev libwebkit2gtk-4.0-dev
 ```
 
+---
+
 ## Building
 
-To build the generated IDE project from the command line, run:
+### Standard build
+
 ```sh
 cmake --build Build --config Debug
 ```
 
-**Or with CMake Presets (Linux/macOS recommended):**
+### Using CMake Presets (recommended for Linux/macOS)
+
 ```sh
-cmake --preset linux-release  # or macos-release, etc.
+cmake --preset linux-release
 cmake --build --preset linux-release
 ```
 
 See `CMakePresets.json` for all available presets.
 
+---
+
 ## Plugin Formats
 
-**Linux**: VST3 and Standalone  
-**macOS**: AU, VST3, Standalone  
-**Windows**: VST3, Standalone  
+| Platform | Formats              |
+| -------- | -------------------- |
+| Linux    | VST3, Standalone     |
+| macOS    | AU, VST3, Standalone |
+| Windows  | VST3, Standalone     |
 
-Edit `CMakeLists.txt` → `juce_add_plugin()` → `FORMATS` to customize.
+Edit in:
+
+```
+CMakeLists.txt → juce_add_plugin() → FORMATS
+```
+
+---
 
 ## References
 
-Based on the [JUCE/examples/CMake/AudioPlugin](https://github.com/juce-framework/JUCE/tree/master/examples/CMake/AudioPlugin) template.
+Based on:
+
+* JUCE official example
+  [https://github.com/juce-framework/JUCE/tree/master/examples/CMake/AudioPlugin](https://github.com/juce-framework/JUCE/tree/master/examples/CMake/AudioPlugin)
 
 Inspired by:
-- [sudara/pamplejuce](https://github.com/sudara/pamplejuce)
-- [eyalamirmusic/JUCECmakeRepoPrototype](https://github.com/eyalamirmusic/JUCECmakeRepoPrototype)
-- [findsp/JUCE-CMake-Plugin-Template](https://github.com/findsp/JUCE-CMake-Plugin-Template)
+
+* [https://github.com/sudara/pamplejuce](https://github.com/sudara/pamplejuce)
+* [https://github.com/eyalamirmusic/JUCECmakeRepoPrototype](https://github.com/eyalamirmusic/JUCECmakeRepoPrototype)
+* [https://github.com/findsp/JUCE-CMake-Plugin-Template](https://github.com/findsp/JUCE-CMake-Plugin-Template)
+
 ```
+
+
