@@ -1,31 +1,44 @@
+
 # JUCE CMake Audio Plugin Template
+## FINDSP Linux additions
 
 [![Build](https://img.shields.io/github/actions/workflow/status/anthonyalfimov/JUCE-CMake-Plugin-Template/Validation.yml?branch=main&logo=github)](https://github.com/anthonyalfimov/JUCE-CMake-Plugin-Template/actions)
 
 A template for creating an audio plug-in using [JUCE 7/8](https://github.com/juce-framework/JUCE) and [CMake](https://cmake.org) that can be used as a [drop-in replacement for Projucer](MIGRATE_FROM_PROJUCER.md).
 
 - Works as a drop-in replacement for Projucer, no changes to the source code are necessary! The template can also be used alongside a `.jucer` project.
-- Generates clean Xcode and Visual Studio projects (reasonable source file organisation, only the necessary build schemes for Xcode).
+- Generates clean Xcode, Visual Studio, and Ninja/Make projects (reasonable source file organisation, only the necessary build schemes).
 - Uses CMake to manage dependencies (e.g. JUCE). The template creates a shallow clone of the specified git tag or branch to reduce download times and disk usage.
-- Uses GitHub Actions to build and validate the plugin on MacOS and Windows. Dependencies and compiler output are cached for faster builds.
+- Uses GitHub Actions to build and validate the plugin on MacOS, Windows, and Linux. Dependencies and compiler output are cached for faster builds.
 
 To learn how to replace a Projucer project with this template, see the [**Migrating from Projucer**](MIGRATE_FROM_PROJUCER.md) guide.
 
-## Generating IDE project
+## Generating IDE projects
 
-To generate an **Xcode** project, run:
+### macOS (Xcode)
 ```sh
-cmake -B Build -G Xcode -D CMAKE_OSX_ARCHITECTURES=arm64\;x86_64 -D CMAKE_OSX_DEPLOYMENT_TARGET=10.15
-```
-The `-D CMAKE_OSX_ARCHITECTURES=arm64\;x86_64` flag is required to build universal binaries.
+cmake -B Build -G Xcode -D CMAKE_OSX_ARCHITECTURES=arm64\\;x86_64 -D CMAKE_OSX_DEPLOYMENT_TARGET=10.15
 
-The `-D CMAKE_OSX_DEPLOYMENT_TARGET=10.15` flag sets the minimum MacOS version to be supported.
+The -D CMAKE_OSX_ARCHITECTURES=arm64\\;x86_64 flag is required to build universal binaries.
 
----
+The -D CMAKE_OSX_DEPLOYMENT_TARGET=10.15 flag sets the minimum macOS version to be supported.
 
-To generate a **Visual Studio 2026 (18)** project, run:
+### Windows (Visual Studio 2026)
 ```sh
 cmake -B Build -G "Visual Studio 18 2026"
+```
+
+### Linux (Ninja)
+```sh
+cmake -B Build -G Ninja
+```
+
+**Ubuntu/Debian dependencies:**
+```sh
+sudo apt install build-essential cmake git \\
+  libasound2-dev libx11-dev libxrandr-dev libxinerama-dev \\
+  libxcursor-dev libxcomposite-dev libfreetype6-dev \\
+  libcurl4-openssl-dev libwebkit2gtk-4.0-dev
 ```
 
 ## Building
@@ -35,11 +48,28 @@ To build the generated IDE project from the command line, run:
 cmake --build Build --config Debug
 ```
 
+**Or with CMake Presets (Linux/macOS recommended):**
+```sh
+cmake --preset linux-release  # or macos-release, etc.
+cmake --build --preset linux-release
+```
+
+See `CMakePresets.json` for all available presets.
+
+## Plugin Formats
+
+**Linux**: VST3 and Standalone  
+**macOS**: AU, VST3, Standalone  
+**Windows**: VST3, Standalone  
+
+Edit `CMakeLists.txt` → `juce_add_plugin()` → `FORMATS` to customize.
+
 ## References
 
 Based on the [JUCE/examples/CMake/AudioPlugin](https://github.com/juce-framework/JUCE/tree/master/examples/CMake/AudioPlugin) template.
 
 Inspired by:
-
 - [sudara/pamplejuce](https://github.com/sudara/pamplejuce)
 - [eyalamirmusic/JUCECmakeRepoPrototype](https://github.com/eyalamirmusic/JUCECmakeRepoPrototype)
+- [findsp/JUCE-CMake-Plugin-Template](https://github.com/findsp/JUCE-CMake-Plugin-Template)
+```
