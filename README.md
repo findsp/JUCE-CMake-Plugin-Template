@@ -116,6 +116,5 @@ Inspired by:
 * [https://github.com/eyalamirmusic/JUCECmakeRepoPrototype](https://github.com/eyalamirmusic/JUCECmakeRepoPrototype)
 * [https://github.com/findsp/JUCE-CMake-Plugin-Template](https://github.com/findsp/JUCE-CMake-Plugin-Template)
 
-```
 
 
